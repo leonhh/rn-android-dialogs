@@ -18,14 +18,8 @@ class ExpoDialogsModule : Module() {
 
       builder
           .setTitle(message)
-          .setPositiveButton("Positive") { dialog, which ->
+          .setPositiveButton("Close") { dialog, which ->
               // Do something.
-          }
-          .setNegativeButton("Negative") { dialog, which ->
-              // Do something else.
-          }
-          .setItems(arrayOf("Item One", "Item Two", "Item Three")) { dialog, which ->
-              // Do something on item tapped.
           }
 
       val dialog: AlertDialog = builder.create()
