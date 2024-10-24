@@ -8,6 +8,7 @@ export default function App() {
         onPress={async () => {
           const result = await ExpoDialogs.showDialog({
             title: "Hello World",
+            message: "This is a message",
             positiveButtonText: "OK",
             negativeButtonText: "Cancel",
           });
@@ -30,6 +31,21 @@ export default function App() {
         }}
       >
         <Text>Show selection dialog</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={async () => {
+          const result = await ExpoDialogs.showRadioButtonDialog({
+            options: ["Option 1", "Option 2", "Option 3"],
+            title: "Hello World",
+            selectedIndex: 1,
+            negativeButtonText: "Cancel",
+          });
+
+          console.log("Selected index:", result);
+        }}
+      >
+        <Text>Show radio button dialog</Text>
       </TouchableOpacity>
     </View>
   );
