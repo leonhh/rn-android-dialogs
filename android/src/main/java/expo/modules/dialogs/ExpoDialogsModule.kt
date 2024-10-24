@@ -217,5 +217,83 @@ class ExpoDialogsModule : Module() {
                 }
             } ?: promise.resolve(-1)
         }
+
+        AsyncFunction("showCheckboxDialog") { 
+            arguments: Map<String, Any?>,
+            promise: Promise ->
+            val activity = appContext.activityProvider?.currentActivity
+            
+            if (!isActivityValid(activity)) {
+                promise.resolve(null)
+                return@AsyncFunction
+            }
+
+            activity?.let { safeActivity ->
+                try {
+                    safeActivity.runOnUiThread {
+                        try {
+                            dismissCurrentDialog()
+                            
+                            val options = (arguments["options"] as? List<*>)?.filterIsInstance<String>() ?: listOf()
+                            val initialSelection = (arguments["selectedIndices"] as? List<*>)?.filterIsInstance<Number>()?.map { it.toInt() } ?: listOf()
+                            
+                            val checkedItems = BooleanArray(options.size) { index ->
+                                initialSelection.contains(index)
+                            }
+                            
+                            val builder = AlertDialog.Builder(safeActivity)
+                            builder.setTitle(arguments["title"] as? String ?: "")
+                            
+                            builder.setMultiChoiceItems(
+                                options.toTypedArray(),
+                                checkedItems
+                            ) { _, which, isChecked ->
+                                checkedItems[which] = isChecked
+                            }
+                            
+                            val positiveButtonText = arguments["positiveButtonText"] as? String ?: "OK"
+                            if (positiveButtonText.isNotEmpty()) {
+                                builder.setPositiveButton(positiveButtonText) { dialog, _ ->
+                                    dialog.dismiss()
+                                    currentDialog = null
+                                    // Convert checked items to list of indices
+                                    val selectedIndices = checkedItems.mapIndexed { index, checked ->
+                                        if (checked) index else null
+                                    }.filterNotNull()
+                                    promise.resolve(selectedIndices)
+                                }
+                            }
+                            
+                            val negativeButtonText = arguments["negativeButtonText"] as? String ?: ""
+                            if (negativeButtonText.isNotEmpty()) {
+                                builder.setNegativeButton(negativeButtonText) { dialog, _ ->
+                                    dialog.dismiss()
+                                    currentDialog = null
+                                    promise.resolve(null)
+                                }
+                            }
+
+                            val dialog = builder.create()
+                            dialog.setCancelable(true)
+                            dialog.setOnCancelListener {
+                                currentDialog = null
+                                promise.resolve(null)
+                            }
+                            
+                            dialog.setOnDismissListener {
+                                currentDialog = null
+                            }
+                            
+                            currentDialog = WeakReference(dialog)
+                            dialog.show()
+                        } catch (_: Exception) {
+                            promise.resolve(null)
+                        }
+                    }
+                } catch (_: Exception) {
+                    promise.resolve(null)
+                }
+            } ?: promise.resolve(null)
+        }
     }
 }

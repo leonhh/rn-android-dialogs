@@ -47,6 +47,21 @@ export default function App() {
       >
         <Text>Show radio button dialog</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={async () => {
+          const result = await ExpoDialogs.showCheckboxDialog({
+            options: ["Option 1", "Option 2", "Option 3"],
+            title: "Hello World",
+            selectedIndices: [1],
+            negativeButtonText: "Cancel",
+          });
+
+          console.log(`Selected indices: ${JSON.stringify(result)}`);
+        }}
+      >
+        <Text>Show checkbox dialog</Text>
+      </TouchableOpacity>
     </View>
   );
 }

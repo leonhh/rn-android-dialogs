@@ -29,7 +29,10 @@ const result = await ExpoDialogs.showDialog({
 console.log("Dialog result:", result);
 ```
 
-### Show multiple choice dialog
+<img src="./screenshots/Screenshot_dialog.png" alt="dialog" width="350"/>
+
+
+### Show selection dialog
 
 ```javascript
 import * as ExpoDialogs from "expo-dialogs";
@@ -42,6 +45,8 @@ const result = await ExpoDialogs.showSelectionDialog({
 
 console.log("Selected index:", result);
 ```
+
+<img src="./screenshots/Screenshot_selection.png" alt="selection dialog" width="350"/>
 
 ### Show radio button dialog
 
@@ -56,3 +61,23 @@ const result = await ExpoDialogs.showRadioButtonDialog({
 });
 
 console.log("Selected index:", result);
+```
+
+<img src="./screenshots/Screenshot_radio.png" alt="radio button dialog" width="350"/>
+
+### Show checkbox dialog
+
+```javascript
+import * as ExpoDialogs from "expo-dialogs";
+
+const result = await ExpoDialogs.showCheckboxDialog({
+  options: ["Option 1", "Option 2", "Option 3"],
+  title: "Hello World",
+  selectedIndices: [1],
+  negativeButtonText: "Cancel",
+});
+
+console.log(`Selected indices: ${JSON.stringify(result)}`);
+```
+
+<img src="./screenshots/Screenshot_checkbox.png" alt="checkbox dialog" width="350"/>
