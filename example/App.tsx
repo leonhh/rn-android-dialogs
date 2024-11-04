@@ -23,6 +23,7 @@ export default function App() {
         onPress={async () => {
           const result = await ExpoDialogs.showSelectionDialog({
             options: ["Option 1", "Option 2", "Option 3"],
+            // message: "Lorem ipsum!",
             title: "Hello World",
             negativeButtonText: "Cancel",
           });
@@ -61,6 +62,24 @@ export default function App() {
         }}
       >
         <Text>Show checkbox dialog</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          ExpoDialogs.showDialog({
+            title: "Hello World",
+            message: "This is a message",
+            positiveButtonText: "OK",
+            negativeButtonText: "Cancel",
+          });
+
+          // Dismiss after 5 seconds
+          setTimeout(() => {
+            ExpoDialogs.dismissDialog();
+          }, 5000);
+        }}
+      >
+        <Text>Dismiss active dialog</Text>
       </TouchableOpacity>
     </View>
   );

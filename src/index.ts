@@ -33,3 +33,7 @@ export async function showCheckboxDialog(
 ): Promise<CheckboxDialogResult> {
   return await ExpoDialogsModule.showCheckboxDialog(options);
 }
+
+export function dismissDialog(): void {
+  ExpoDialogsModule.dismissDialog();
+}

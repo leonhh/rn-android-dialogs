@@ -29,6 +29,10 @@ class ExpoDialogsModule : Module() {
             dismissCurrentDialog()
         }
 
+        Function("dismissDialog") {
+            dismissCurrentDialog()
+        }
+
         AsyncFunction("showDialog") { 
             arguments: Map<String, Any?>,
             promise: Promise ->

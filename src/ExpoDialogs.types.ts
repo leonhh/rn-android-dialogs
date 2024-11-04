@@ -1,9 +1,9 @@
 interface BaseDialogOptions {
   title: string;
+  message?: string;
   negativeButtonText?: string;
 }
 export interface AlertDialogOptions extends BaseDialogOptions {
-  message?: string;
   positiveButtonText: string;
 }
 export interface SelectionDialogOptions extends BaseDialogOptions {

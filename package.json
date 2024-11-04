@@ -1,6 +1,6 @@
 {
   "name": "expo-dialogs",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Show native Android dialogs",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -19,7 +19,9 @@
     "react-native",
     "expo",
     "expo-dialogs",
-    "ExpoDialogs"
+    "ExpoDialogs",
+    "react-native-dialogs",
+    "react-native-picker"
   ],
   "repository": "https://github.com/leonhh/expo-dialogs",
   "bugs": {
